@@ -5,9 +5,9 @@ SDL_Button::SDL_Button(void)
 	//gets the address of the Screen buffer
 	this->Screen = SDL_GetVideoSurface();
 	this->color = SDL_MapRGB(Screen->format, 200, 200, 200);
-	Button_SetWH(100, 50);
+	Button_SetWH(140, 70);
 	//sets the default position of the button to the center
-	Button_SetPositon(Screen->w / 2 - rectangle.w / 2, Screen->h / 2 - rectangle.h / 2);
+	Button_SetPosition(Screen->w / 2 - rectangle.w / 2, Screen->h / 2 - rectangle.h / 2);
 	TTF_Init();
 	Button_SetText("Button", "ariblk.ttf", 30);
 	this->flag_notext = 0;
@@ -16,7 +16,7 @@ SDL_Button::SDL_Button(void)
 	this->flag_onMoveOver = 0;
 }
 
-void SDL_Button::Button_SetPositon(int x, int y)
+void SDL_Button::Button_SetPosition(int x, int y)
 {
 	rectangle.x = x;
 	rectangle.y = y;

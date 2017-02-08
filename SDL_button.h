@@ -27,7 +27,7 @@ public:
 	//sets width and height of the button
 	void Button_SetWH(int width, int height);
 	//sets position of the button on the Screen
-	void Button_SetPositon(int x, int y);
+	void Button_SetPosition(int x, int y);
 	//sets background color of the button
 	void Button_SetBackgroundColor(int r, int g, int b);
 	//sets text, font and size
