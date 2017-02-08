@@ -27,15 +27,18 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDL_Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDL_button.h">
+    <ClInclude Include="Tictactoe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tictactoe.h">
+    <ClInclude Include="SDL_Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

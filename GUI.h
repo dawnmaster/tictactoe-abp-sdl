@@ -4,7 +4,7 @@
 #include <SDL_ttf.h>
 #include <cstring>
 #include <iostream>
-#include "SDL_button.h"
+#include "SDL_Button.h"
 #include "Tictactoe.h"
 
 class GUI
