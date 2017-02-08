@@ -5,6 +5,6 @@
 
 int main(int argc, char *argv[])
 {
-	_getch();
+	//_getch();
 	return 0;
 }
