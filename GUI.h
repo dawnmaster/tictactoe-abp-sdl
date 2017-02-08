@@ -9,24 +9,29 @@
 
 class GUI
 {
-	SDL_Surface *screen;
-	SDL_Surface *board;
-	SDL_Surface *cross;
-	SDL_Surface *nought;
-	SDL_Surface *text;
-	SDL_Surface *icon;
+	SDL_Surface *screen = nullptr;
+	SDL_Surface *board = nullptr;
+	SDL_Surface *cross = nullptr;
+	SDL_Surface *nought = nullptr;
+	SDL_Surface *text = nullptr;
+	SDL_Surface *icon = nullptr;
 	SDL_Color color;
-	//SDL_Event event;
-	TTF_Font *font;
+	SDL_Event event;
+	TTF_Font *font = nullptr;
 	int FPS;
 	int a, x, y;
 	int Side;
 	int ScreenSelected;
-	char text_t[20];
 	enum { EMPTY, NOUGHTS, CROSSES };
+	Tictactoe game;
 
 public:
 	GUI(int width, int height, int bpp, int flag, int fps);
+	void putBoard();
+	void getMove();
+	void flipSide();
+	void updateBoardGUI();
+	int GameOver();
 	void StartScreen();	//0
 	void MenuScreen();	//1
 	void LevelSelectionScreen();	//2
@@ -35,5 +40,4 @@ public:
 	void GameOverScreen(); //5
 	void StateMachine();
 	~GUI(void);
-
 };
