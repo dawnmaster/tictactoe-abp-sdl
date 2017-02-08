@@ -86,12 +86,10 @@ void GUI::MenuScreen()	///1
 			case SDL_QUIT:
 				exit(1);
 				break;
-			default:
-				break;
 			}
 		}
 		
-		//button 1 events
+		///play button events
 		if (play.Button_onMoveOver())
 		{
 			play.Button_SetBackgroundColor(100, 200, 250);
@@ -108,7 +106,7 @@ void GUI::MenuScreen()	///1
 			choice = 1;
 		}
 
-		//button 2 events
+		///quit button events
 		if (quit.Button_onMoveOver())
 		{
 			quit.Button_SetBackgroundColor(100, 200, 250);
@@ -126,6 +124,93 @@ void GUI::MenuScreen()	///1
 		SDL_Flip(screen);
 	}
 	return;
+}
+
+void GUI::GameOverScreen()	///5
+{
+	SDL_Rect rect;
+	rect.x = 60;
+	rect.y = 100;
+	SDL_Surface *alpha = SDL_CreateRGBSurface(SDL_SWSURFACE, screen->w, screen->h, 32, 100, 0, 0, 0);
+	SDL_SetAlpha(alpha, SDL_SRCALPHA, 100);
+	SDL_BlitSurface(alpha, NULL, screen, NULL);
+	SDL_FreeSurface(alpha);
+	int choice = 0;
+	this->font = TTF_OpenFont("ariblk.ttf", 40);
+	this->color.r = 188;
+	this->color.g = 235;
+	this->color.b = 48;
+	if (a == 2)
+	{
+		text = TTF_RenderText_Blended(font, "ITS A DRAW", this->color);
+	}
+	else if (a == 1)
+	{
+		rect.x = 50;
+		text = TTF_RenderText_Blended(font, "COMPUTER WINS", this->color);
+	}
+	else if (a == -1)
+	{
+		text = TTF_RenderText_Blended(font, "HUMAN WINS", this->color);
+	}
+	std::cout << " a=" << a << " ";
+
+	SDL_BlitSurface(text, NULL, screen, &rect);
+
+	SDL_Button replay;
+	replay.Button_SetPosition(100, 200);
+	replay.Button_SetWH(200, 50);
+	replay.Button_SetText("PLAY AGAIN", "ariblk.ttf", 15);
+
+	SDL_Button quit;
+	quit.Button_SetPosition(100, 270);
+	quit.Button_SetWH(200, 50);
+	quit.Button_SetText("QUIT", "ariblk.ttf", 15);
+
+	while (!choice)
+	{
+		while (SDL_PollEvent(&event))
+		{
+			switch (event.type)
+			{
+			case SDL_QUIT:
+				choice = 1;
+				exit(1);
+				break;
+			};
+		}
+		replay.Button_Show(event);
+		quit.Button_Show(event);
+		///replay button events
+		if (replay.Button_onMoveOver())
+		{
+			replay.Button_SetBackgroundColor(227, 87, 168);
+		}
+		else
+		{
+			replay.Button_SetBackgroundColor(222, 61, 153);
+		}
+		if (replay.Button_OnClick())
+		{
+			ScreenSelected = 2;
+			choice = 1;
+		}
+		///quit button events
+		if (quit.Button_onMoveOver())
+		{
+			quit.Button_SetBackgroundColor(227, 87, 168);
+		}
+		else
+		{
+			quit.Button_SetBackgroundColor(222, 61, 153);
+		}
+		if (quit.Button_OnClick())
+		{
+			exit(1);
+		}
+
+		SDL_Flip(screen);
+	}
 }
 
 void GUI::LevelSelectionScreen()	///2
@@ -173,7 +258,6 @@ void GUI::LevelSelectionScreen()	///2
 			case SDL_QUIT:
 				choice = 1;
 				exit(1);
-				break;
 			};
 		}
 
@@ -188,7 +272,7 @@ void GUI::LevelSelectionScreen()	///2
 		}
 		if (easy.Button_OnClick())
 		{
-			//game.setMaxDepth(1);	///Difficulty
+			game.setMaxDepth(1);	///Difficulty
 			choice = 1;
 			this->ScreenSelected = 3;
 			SDL_WM_SetCaption("TIC TAC TOE - EASY", NULL);
@@ -206,7 +290,7 @@ void GUI::LevelSelectionScreen()	///2
 
 		if (medium.Button_OnClick())
 		{
-			//game.setMaxDepth(3);	///Difficulty
+			game.setMaxDepth(3);	///Difficulty
 			choice = 1;
 			this->ScreenSelected = 3;
 			SDL_WM_SetCaption("TIC TAC TOE - MEDIUM", NULL);
@@ -224,7 +308,7 @@ void GUI::LevelSelectionScreen()	///2
 
 		if (hard.Button_OnClick())
 		{
-			//game.setMaxDepth(7);	///Difficulty
+			game.setMaxDepth(7);	///Difficulty
 			choice = 1;
 			this->ScreenSelected = 3;
 			SDL_WM_SetCaption("TIC TAC TOE - HARD", NULL);
@@ -315,7 +399,7 @@ void GUI::RunGame()	///4
 {
 	int GameOver = 0;
 	int changesMade = 1;
-	//game.RunGame();
+	game.RunGame();
 	if (Side == CROSSES)
 	{
 		getMove();
@@ -373,93 +457,6 @@ void GUI::RunGame()	///4
 		this->a = this->GameOver();
 		this->ScreenSelected = 5;
 		return;
-	}
-}
-
-void GUI::GameOverScreen()	///5
-{
-	SDL_Rect rect;
-	rect.x = 60;
-	rect.y = 100;
-	SDL_Surface *alpha = SDL_CreateRGBSurface(SDL_SWSURFACE, screen->w, screen->h, 32, 100, 0, 0, 0);
-	SDL_SetAlpha(alpha, SDL_SRCALPHA, 100);
-	SDL_BlitSurface(alpha, NULL, screen, NULL);
-	SDL_FreeSurface(alpha);
-	int choice = 0;
-	this->font = TTF_OpenFont("ariblk.ttf", 40);
-	this->color.r = 188;
-	this->color.g = 235;
-	this->color.b = 48;
-	if (a == 2)
-	{
-		text = TTF_RenderText_Blended(font, "ITS A DRAW", this->color);
-	}
-	else if (a == 1)
-	{
-		rect.x = 50;
-		text = TTF_RenderText_Blended(font, "COMPUTER WINS", this->color);
-	}
-	else if (a == -1)
-	{
-		text = TTF_RenderText_Blended(font, "HUMAN WINS", this->color);
-	}
-	std::cout << " a=" << a << " ";
-
-	SDL_BlitSurface(text, NULL, screen, &rect);
-
-	SDL_Button replay;
-	replay.Button_SetPosition(100, 200);
-	replay.Button_SetWH(200, 50);
-	replay.Button_SetText("PLAY AGAIN", "ariblk.ttf", 15);
-
-	SDL_Button quit;
-	quit.Button_SetPosition(100, 270);
-	quit.Button_SetWH(200, 50);
-	quit.Button_SetText("QUIT", "ariblk.ttf", 15);
-
-	while (!choice)
-	{
-		while (SDL_PollEvent(&event))
-		{
-			switch (event.type)
-			{
-			case SDL_QUIT:
-				choice = 1;
-				exit(1);
-				break;
-			};
-		}
-		replay.Button_Show(event);
-		quit.Button_Show(event);
-		//replay button events
-		if (replay.Button_onMoveOver())
-		{
-			replay.Button_SetBackgroundColor(227, 87, 168);
-		}
-		else
-		{
-			replay.Button_SetBackgroundColor(222, 61, 153);
-		}
-		if (replay.Button_OnClick())
-		{
-			ScreenSelected = 2;
-			choice = 1;
-		}
-		//quit button events
-		if (quit.Button_onMoveOver())
-		{
-			quit.Button_SetBackgroundColor(227, 87, 168);
-		}
-		else
-		{
-			quit.Button_SetBackgroundColor(222, 61, 153);
-		}
-		if (quit.Button_OnClick())
-		{
-			exit(1);
-		}
-
-		SDL_Flip(screen);
 	}
 }
 
