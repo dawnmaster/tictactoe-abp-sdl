@@ -2,11 +2,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <SDL_video.h>
 #include <cstring>
 #include <iostream>
 #include "SDL_button.h"
-#include "tictactoe.h"
+#include "Tictactoe.h"
 
 class GUI
 {
@@ -17,20 +16,24 @@ class GUI
 	SDL_Surface *text;
 	SDL_Surface *icon;
 	SDL_Color color;
-	SDL_Event event;
+	//SDL_Event event;
 	TTF_Font *font;
 	int FPS;
 	int a, x, y;
 	int Side;
 	int ScreenSelected;
 	char text_t[20];
-	enum 
-	{
-		EMPTY, NOUGHTS, CROSSES
-	};
+	enum { EMPTY, NOUGHTS, CROSSES };
 
 public:
 	GUI(int width, int height, int bpp, int flag, int fps);
-
+	void StartScreen();	//0
+	void MenuScreen();	//1
+	void LevelSelectionScreen();	//2
+	void PlaySelection(); //3
+	void RunGame(); //4
+	void GameOverScreen(); //5
+	void StateMachine();
+	~GUI(void);
 
 };

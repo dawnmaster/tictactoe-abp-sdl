@@ -21,6 +21,12 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tictactoe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI.h">
@@ -29,7 +35,7 @@
     <ClInclude Include="SDL_button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tictactoe.h">
+    <ClInclude Include="Tictactoe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
