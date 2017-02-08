@@ -53,13 +53,13 @@ void GUI::MenuScreen()	///1
 	rectangle.x = 70;
 	rectangle.y = 40;
 	int changesMade = 1;
-	text = TTF_RenderText_Blended(font, "TIC TAC TOE", color);	//this?
+	text = TTF_RenderText_Blended(font, "TIC TAC TOE", color);
 	SDL_Surface *background = IMG_Load("Assets/MenuBackground.bmp");
 	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 200, 0, 255));
 	SDL_BlitSurface(background, NULL, screen, NULL);
 	SDL_BlitSurface(text, NULL, screen, &rectangle);
 	
-	//std::cout << "asset loaded";
+	std::cout << "asset loaded";
 	//SDL_Delay(1000);
 
 	SDL_Button play;
@@ -146,7 +146,7 @@ void GUI::GameOverScreen()	///5
 	}
 	else if (a == 1)
 	{
-		rect.x = 50;
+		rect.x = 20;
 		text = TTF_RenderText_Blended(font, "COMPUTER WINS", this->color);
 	}
 	else if (a == -1)
@@ -534,16 +534,16 @@ void GUI::updateBoardGUI()
 			if (game.getBoard().board[row][col] == CROSSES)
 			{
 				SDL_Rect rect;
-				rect.y = row * 145;
-				rect.x = col * 140;
+				rect.y = row * 147;
+				rect.x = col * 145;
 
 				SDL_BlitSurface(cross, NULL, screen, &rect);
 			}
 			if (game.getBoard().board[row][col] == NOUGHTS)
 			{
 				SDL_Rect rect;
-				rect.y = row * 145;
-				rect.x = col * 140;
+				rect.y = row * 147;
+				rect.x = col * 145;
 
 				SDL_BlitSurface(nought, NULL, screen, &rect);
 			}

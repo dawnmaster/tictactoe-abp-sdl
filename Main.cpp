@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
 	GUI gui(420, 420, 32, SDL_SWSURFACE, 30);
 	gui.StateMachine();
-	//_getch();
+	_getch();
 	SDL_Quit();
 	return 0;
 }
