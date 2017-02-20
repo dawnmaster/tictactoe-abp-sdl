@@ -20,7 +20,7 @@ GUI::GUI(int width, int height, int bpp, int flag, int fps)
 	this->board = SDL_LoadBMP("Assets/grid.bmp");
 	this->cross = SDL_LoadBMP("Assets/cross.bmp");
 	this->nought = SDL_LoadBMP("Assets/nought.bmp");
-	this->icon = IMG_Load("Assets/icon1.ico");
+	this->icon = IMG_Load("Assets/icon.ico");
 	this->ScreenSelected = 0;
 	SDL_WM_SetCaption("TicTacToe Main Screen", NULL);
 	SDL_WM_SetIcon(icon, NULL);
@@ -39,7 +39,7 @@ void GUI::StartScreen()	///0
 	SDL_BlitSurface(text, NULL, screen, &rectangle);
 	///refresh screen
 	SDL_Flip(screen);
-	//SDL_Delay(1000);
+	//SDL_Delay(3000);
 	this->ScreenSelected = 1;
 	return;
 }
@@ -153,7 +153,7 @@ void GUI::GameOverScreen()	///5
 	{
 		text = TTF_RenderText_Blended(font, "HUMAN WINS", this->color);
 	}
-	std::cout << " a=" << a << " ";
+	//std::cout << " a=" << a << " ";
 
 	SDL_BlitSurface(text, NULL, screen, &rect);
 
@@ -308,7 +308,7 @@ void GUI::LevelSelectionScreen()	///2
 
 		if (hard.Button_OnClick())
 		{
-			game.setMaxDepth(7);	///Difficulty
+			game.setMaxDepth(5);	///Difficulty
 			choice = 1;
 			this->ScreenSelected = 3;
 			SDL_WM_SetCaption("TIC TAC TOE - HARD", NULL);
@@ -423,7 +423,7 @@ void GUI::RunGame()	///4
 					x = event.button.x;
 					y = event.button.y;
 					getMove();
-					if (this->GameOver() != 0)
+					if (this->GameOver() != 0)	///outcome decided
 					{
 						GameOver = 1;
 					}

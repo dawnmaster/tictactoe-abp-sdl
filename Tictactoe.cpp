@@ -19,7 +19,7 @@ void Tictactoe::setSide(int side)
 	this->side = side;
 }
 
-int Tictactoe::EvalThree(int side, Board &board)
+int Tictactoe::EvalThree(int side, Board &board)	//any three?
 {
 	//row wise
 	int count;
@@ -86,7 +86,7 @@ int Tictactoe::EvalThreeAllBoard(int side, Board &board)
 	{
 		return -1;
 	}
-	return 0;
+	return 0;	///still no winner
 }
 
 int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
@@ -94,10 +94,11 @@ int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
 	int moveCount = 0;
 	Move moveList[9];
 	Move move;
-	int bestScore = -2;
-	int Score = -2;
+	int bestScore = -999999999;
+	int Score = -999999999;
 	Move bestMove;
-	if (ply > maxPly) maxPly = ply;
+	if (ply > maxPly)
+		maxPly = ply;
 	positions++;
 
 	if (side == CROSSES)
@@ -105,7 +106,7 @@ int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
 	//computer's turn
 	else
 		bestScore = beta;
-	//human's turn
+	//player's turn
 
 	if (ply > 0)
 	{
@@ -139,14 +140,15 @@ int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
 	for (int index = 0; index < moveCount; index++)
 	{
 		move = moveList[index];
-		board.board[move.row][move.col] = side;
-		//printBoard(board);
+		board.board[move.row][move.col] = side;	///placing
+		printBoard(board);
 		ply++;
 		if (side == NOUGHTS)
 			Score = minimaxAB(CROSSES, board, alpha, beta);
 		else
 			Score = minimaxAB(NOUGHTS, board, alpha, beta);
-		board.board[move.row][move.col] = EMPTY;
+		board.board[move.row][move.col] = EMPTY;	///remove placing
+		std::cout << "score = " << Score;
 		ply--;
 		if (Score > bestScore && side == CROSSES)
 		{
@@ -158,9 +160,10 @@ int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
 			beta = bestScore = Score;
 			bestMove = move;
 		}
+		std::cout << "\nalpha = " << alpha << " " << "beta = " << beta << "\n";
 		if (alpha >= beta)
 		{
-			//std::cout<<"pruned\n";
+			std::cout << "pruned\n";
 			return bestScore;
 		}
 	}
@@ -169,7 +172,7 @@ int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
 	{
 		bestScore = EvalThreeAllBoard(side, board);
 	}
-	//std::cout<<"\nalpha = "<<alpha<<" "<<"beta = "<<beta<<" ";
+	std::cout<<"\nalpha = "<<alpha<<" "<<"beta = "<<beta<<" ";
 
 	if (ply != 0)
 	{
@@ -184,25 +187,37 @@ int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
 
 int Tictactoe::Eval(int side, Board &board)
 {
-	int Not_side = CROSSES;
+	//int Not_side = CROSSES;
+	//if (side == CROSSES)	//X
+	//	int Not_side = NOUGHTS;	//O
+	//return (PossibleWinningLines(board, side) - PossibleWinningLines(board, Not_side));
+	
+
 	if (side == CROSSES)
-		Not_side = NOUGHTS;
-	return (PossibleWinningLines(board, side) - PossibleWinningLines(board, Not_side));
+	{
+		int Not_side = NOUGHTS;
+		return (PossibleWinningLines(board, side) - PossibleWinningLines(board, Not_side));
+	}
+	else
+	{
+		int Not_side = CROSSES;
+		return (PossibleWinningLines(board, Not_side) - PossibleWinningLines(board, side));
+	}
 }
 
-int Tictactoe::PossibleWinningLines(Board &board, int side)
+int Tictactoe::PossibleWinningLines(Board &board, int side)	//for this current side
 {
 	int winningLines = 0;
 	bool checkForSideorEmpty;
 	//count row wise
 	for (int row = 0; row < board.size; row++)
 	{
-		checkForSideorEmpty = 1;
+		checkForSideorEmpty = 1;	///true
 		for (int col = 0; col < board.size; col++)
 		{
 			if (board.board[row][col] != side && board.board[row][col] != EMPTY)
 			{
-				checkForSideorEmpty = 0;
+				checkForSideorEmpty = 0;	///false
 			}
 		}
 		if (checkForSideorEmpty) winningLines++;
@@ -278,11 +293,11 @@ void Tictactoe::GetComputerMove(int side, Board &board)
 	this->bestMove.row = this->bestMove.col = -1;
 	this->maxPly = 0;
 	this->positions = 0;
-	int alpha = -4;
-	int beta = +4;
+	int alpha = -999999999;
+	int beta = +999999999;
 	minimaxAB(side, board, alpha, beta);
 	board.board[bestMove.row][bestMove.col] = side;
-	//std::cout<<bestMove.row<<" "<<bestMove.col;
+	std::cout<<"bestMove "<<bestMove.row<<","<<bestMove.col;
 	printBoard(board);
 }
 
@@ -290,17 +305,17 @@ int Tictactoe::GameOver(int side, Board board)
 {
 	if (EvalThreeAllBoard(side, board) == 1)
 	{
-		std::cout << "computer wins";
+		//std::cout << "computer wins";
 		return 1;
 	}
 	if (EvalThreeAllBoard(side, board) == -1)
 	{
-		std::cout << "human wins";
+		//std::cout << "human wins";
 		return -1;
 	}
 	if (!isEmpty())
 	{
-		std::cout << "its a draw";
+		//std::cout << "its a draw";
 		return 2;
 	}
 	return 0;
