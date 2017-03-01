@@ -39,7 +39,7 @@ void GUI::StartScreen()	///0
 	SDL_BlitSurface(text, NULL, screen, &rectangle);
 	///refresh screen
 	SDL_Flip(screen);
-	//SDL_Delay(3000);
+	SDL_Delay(1000);
 	this->ScreenSelected = 1;
 	return;
 }
@@ -60,7 +60,7 @@ void GUI::MenuScreen()	///1
 	SDL_BlitSurface(text, NULL, screen, &rectangle);
 	
 	std::cout << "asset loaded";
-	//SDL_Delay(1000);
+	SDL_Delay(1000);
 
 	SDL_Button play;
 	play.Button_SetPosition(screen->w / 2 - 180, 320);
@@ -308,7 +308,7 @@ void GUI::LevelSelectionScreen()	///2
 
 		if (hard.Button_OnClick())
 		{
-			game.setMaxDepth(5);	///Difficulty
+			game.setMaxDepth(7);	///Difficulty
 			choice = 1;
 			this->ScreenSelected = 3;
 			SDL_WM_SetCaption("TIC TAC TOE - HARD", NULL);
@@ -462,8 +462,10 @@ void GUI::RunGame()	///4
 
 void GUI::getMove()
 {
+	
 	if (Side == CROSSES)
 	{
+		SDL_Delay(999);
 		game.GetComputerMove(Side, game.getBoard());
 		flipSide();
 	}
@@ -475,6 +477,24 @@ void GUI::getMove()
 			flipSide();
 		}
 	}
+
+	/*if (Side == CROSSES)
+	{
+		if (game.getBoard().board[y / 133][x / 133] == 0)
+		{
+			game.GetHumanMove(Side, game.getBoard(), y / 133, x / 133);
+			flipSide();
+		}
+	}
+	else if (Side == NOUGHTS)
+	{
+		if (game.getBoard().board[y / 133][x / 133] == 0)
+		{
+			game.GetHumanMove(Side, game.getBoard(), y / 133, x / 133);
+			flipSide();
+		}
+	}*/
+
 }
 
 int GUI::GameOver()

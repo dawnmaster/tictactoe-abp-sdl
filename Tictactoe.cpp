@@ -187,12 +187,6 @@ int Tictactoe::minimaxAB(int side, Board &board, int alpha, int beta)
 
 int Tictactoe::Eval(int side, Board &board)
 {
-	//int Not_side = CROSSES;
-	//if (side == CROSSES)	//X
-	//	int Not_side = NOUGHTS;	//O
-	//return (PossibleWinningLines(board, side) - PossibleWinningLines(board, Not_side));
-	
-
 	if (side == CROSSES)
 	{
 		int Not_side = NOUGHTS;
